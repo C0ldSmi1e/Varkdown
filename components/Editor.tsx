@@ -10,19 +10,31 @@ interface EditorProps {
   darkMode: boolean;
 }
 
+const SCROLLBAR_OPTIONS: Monaco.editor.IEditorScrollbarOptions = {
+  useShadows: false,
+} as const;
+
 const EDITOR_OPTIONS: Monaco.editor.IStandaloneEditorConstructionOptions = {
-  minimap: { enabled: false },
+  minimap: {
+    enabled: false,
+  },
   fontSize: 18,
-  wordWrap: "off",
+  lineHeight: 24,
+  wordWrap: "on",
   wrappingStrategy: "advanced",
   lineNumbers: "on",
   renderLineHighlight: "all",
   scrollBeyondLastLine: false,
-  folding: true,
+  folding: false,
   automaticLayout: true,
   tabSize: 2,
   tabCompletion: "on",
+  padding: { top: 16, bottom: 16 },
+  fontFamily: "'Fira Code', monospace",
+  fontLigatures: true,
+  scrollbar: SCROLLBAR_OPTIONS,
 } as const;
+
 
 declare global {
   interface Window {
@@ -86,7 +98,7 @@ export default function MonacoEditor({ value, onChange, darkMode }: EditorProps)
   };
 
   return (
-    <div className="relative h-full">
+    <div className="relative h-full overflow-hidden">
       <Editor
         height="92vh"
         defaultLanguage="markdown"
@@ -98,7 +110,7 @@ export default function MonacoEditor({ value, onChange, darkMode }: EditorProps)
       />
       <div 
         ref={statusNodeRef}
-        className="absolute bottom-0 left-0 p-1 text-sm dark:text-solarized-base0 text-solarized-base0"
+        className="absolute bottom-0 left-0 p-2 text-sm bg-solarized-base2 dark:bg-solarized-base02 text-solarized-base00 dark:text-solarized-base0 rounded-tr-md"
         aria-live="polite"
       />
     </div>

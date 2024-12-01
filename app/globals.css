@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+
 :root {
   --background: theme('colors.solarized.base3');
   --foreground: theme('colors.solarized.base00');
@@ -15,12 +17,12 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 @layer utilities {
   .preview-container {
-    @apply bg-solarized-base3 dark:bg-solarized-base03 text-solarized-base00 dark:text-solarized-base0;
+    @apply bg-solarized-base3 dark:bg-solarized-base03 text-solarized-base00 dark:text-solarized-base0 p-6;
   }
 
   .prose pre {
@@ -28,19 +30,19 @@ body {
   }
 
   .prose code {
-    @apply text-solarized-base01 dark:text-solarized-base1 bg-solarized-base2 dark:bg-solarized-base02;
+    @apply text-solarized-base01 dark:text-solarized-base1 bg-solarized-base2 dark:bg-solarized-base02 px-1 py-0.5;
   }
 
   .prose a {
-    @apply text-solarized-blue dark:text-solarized-blue;
+    @apply text-solarized-blue dark:text-solarized-blue underline hover:text-solarized-cyan dark:hover:text-solarized-cyan transition-colors;
   }
 
   .prose strong {
-    @apply text-solarized-base01 dark:text-solarized-base1;
+    @apply text-solarized-base01 dark:text-solarized-base1 font-semibold;
   }
 
   .prose blockquote {
-    @apply border-l-4 border-solarized-base1 dark:border-solarized-base01;
+    @apply border-l-4 border-solarized-base1 dark:border-solarized-base01 pl-4 italic;
   }
 
   .prose ul > li::before {
@@ -48,7 +50,23 @@ body {
   }
 
   .prose ol > li::before {
-    @apply text-solarized-base1 dark:text-solarized-base01;
+    @apply text-solarized-base1 dark:text-solarized-base01 font-semibold;
+  }
+
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    @apply text-solarized-base01 dark:text-solarized-base1 font-bold mb-4;
+  }
+
+  .prose table {
+    @apply border-collapse border border-solarized-base1 dark:border-solarized-base01;
+  }
+
+  .prose th, .prose td {
+    @apply border border-solarized-base1 dark:border-solarized-base01 px-4 py-2;
+  }
+
+  .prose thead {
+    @apply bg-solarized-base2 dark:bg-solarized-base02;
   }
 }
 

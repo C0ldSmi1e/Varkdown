@@ -6,7 +6,7 @@ import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { SyntaxHighlighterProps } from "react-syntax-highlighter";
-import { a11yDark, dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { oneDark, twilight } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import "katex/dist/katex.min.css";
 
 interface PreviewProps {
@@ -15,41 +15,49 @@ interface PreviewProps {
 }
 
 const Preview: React.FC<PreviewProps> = ({ content, darkMode }) => {
-
   return (
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm, remarkMath]}
-      rehypePlugins={[rehypeKatex, rehypeRaw]}
-      className="prose prose-sm md:prose-base lg:prose-lg max-w-none dark:prose-invert"
-      components={{
-        code(props) {
-          const {
-            children,
-            className,
-            node,
-            ...rest
-          } = props as SyntaxHighlighterProps;
-          const match = /language-(\w+)/.exec(className || "");
-          return match ? (
-            <SyntaxHighlighter
-              {...rest}
-              PreTag="div"
-              language={match[1]}
-              style={darkMode ? dracula : a11yDark}
-            >
-              {String(children).replace(/\n$/, "")}
-            </SyntaxHighlighter>
-          ) : (
-            <code {...rest} className={className}>
-              {children}
-            </code>
-          );
-        }
-      }}
-    >
-      {content}
-    </ReactMarkdown>
+    <div className="preview-container overflow-auto h-[92vh] font-sans">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm, remarkMath]}
+        rehypePlugins={[rehypeKatex, rehypeRaw]}
+        className="prose max-w-none dark:prose-invert"
+        components={{
+          code(props) {
+            const {
+              children,
+              className,
+              node,
+              ...rest
+            } = props as SyntaxHighlighterProps;
+            const match = /language-(\w+)/.exec(className || "");
+            return match ? (
+              <SyntaxHighlighter
+                {...rest}
+                PreTag="div"
+                language={match[1]}
+                style={darkMode ? oneDark : twilight}
+                customStyle={{
+                  padding: "1rem",
+                  fontSize: "0.875rem",
+                  lineHeight: "1.5",
+                  fontFamily: "\"Fira Code\", monospace",
+                }}
+              >
+                {String(children).replace(/\n$/, "")}
+              </SyntaxHighlighter>
+            ) : (
+              <code {...rest} className={className}>
+                {children}
+              </code>
+            );
+          }
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
   );
 };
 
 export default Preview;
+

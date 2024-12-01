@@ -10,6 +10,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+        mono: ["\"Fira Code\"", "monospace"],
+      },
       colors: {
         solarized: {
           base03: "#002b36",
@@ -48,6 +52,12 @@ const config: Config = {
             "--tw-prose-pre-bg": theme("colors.solarized.base03"),
             "--tw-prose-th-borders": theme("colors.solarized.base2"),
             "--tw-prose-td-borders": theme("colors.solarized.base2"),
+            fontSize: "1.2rem",
+            lineHeight: "1.75",
+            fontFamily: theme("fontFamily.sans"),
+            "code, pre": {
+              fontFamily: theme("fontFamily.mono"),
+            },
           },
         },
         invert: {
