@@ -35,7 +35,6 @@ const EDITOR_OPTIONS: Monaco.editor.IStandaloneEditorConstructionOptions = {
   scrollbar: SCROLLBAR_OPTIONS,
 } as const;
 
-
 declare global {
   interface Window {
     require: {
@@ -50,29 +49,79 @@ export default function MonacoEditor({ value, onChange, darkMode }: EditorProps)
   const monacoRef = useRef<typeof Monaco | null>(null);
   const editorRef = useRef<Monaco.editor.IStandaloneCodeEditor | null>(null);
   const themesLoadedRef = useRef<boolean>(false);
+  const vimModeRef = useRef<VimMode | null>(null);
 
   const loadThemes = async (monaco: typeof Monaco) => {
     if (themesLoadedRef.current) return;
 
-    const [darkThemeData, lightThemeData] = await Promise.all([
-      fetch("/themes/solarized-dark.json").then(data => data.json()),
-      fetch("/themes/solarized-light.json").then(data => data.json())
-    ]);
+    try {
+      const [darkThemeData, lightThemeData] = await Promise.all([
+        fetch("/themes/Solarized-dark.json").then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        }),
+        fetch("/themes/Solarized-light.json").then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+      ]);
 
-    monaco.editor.defineTheme("dark", darkThemeData);
-    monaco.editor.defineTheme("light", lightThemeData);
-    themesLoadedRef.current = true;
+      monaco.editor.defineTheme("dark", darkThemeData);
+      monaco.editor.defineTheme("light", lightThemeData);
+      themesLoadedRef.current = true;
+    } catch (error) {
+      console.error("Failed to load themes:", error);
+      // Fallback to default themes
+      monaco.editor.setTheme(darkMode ? "vs-dark" : "vs");
+    }
   };
 
   const updateTheme = useCallback(() => {
-    if (monacoRef.current && editorRef.current && themesLoadedRef.current) {
-      monacoRef.current.editor.setTheme(darkMode ? "dark" : "light");
+    if (monacoRef.current && editorRef.current) {
+      const theme = themesLoadedRef.current ? (darkMode ? "dark" : "light") : (darkMode ? "vs-dark" : "vs");
+      monacoRef.current.editor.setTheme(theme);
     }
   }, [darkMode]);
 
   useEffect(() => {
     updateTheme();
   }, [darkMode, updateTheme]);
+
+  useEffect(() => {
+    // Cleanup function
+    return () => {
+      if (vimModeRef.current) {
+        vimModeRef.current.dispose();
+      }
+    };
+  }, []);
+
+  const initializeVimMode = (editor: Monaco.editor.IStandaloneCodeEditor) => {
+    if (!window.require) {
+      console.error("AMD loader not found");
+      return;
+    }
+
+    try {
+      window.require.config({
+        paths: {
+          "monaco-vim": "https://unpkg.com/monaco-vim/dist/monaco-vim"
+        }
+      });
+
+      window.require(["monaco-vim"], function(monacoVim: MonacoVim) {
+        if (statusNodeRef.current && !vimModeRef.current) {
+          vimModeRef.current = monacoVim.initVimMode(editor, statusNodeRef.current);
+        }
+      });
+    } catch (error) {
+      console.error("Failed to initialize Vim mode:", error);
+    }
+  };
 
   const handleEditorDidMount: OnMount = async (editor, monaco) => {
     editorRef.current = editor;
@@ -81,20 +130,8 @@ export default function MonacoEditor({ value, onChange, darkMode }: EditorProps)
     await loadThemes(monaco);
     updateTheme();
 
-    window.require.config({
-      paths: {
-        "monaco-vim": "https://unpkg.com/monaco-vim/dist/monaco-vim"
-      }
-    });
-
-    window.require(["monaco-vim"], function(monacoVim: MonacoVim) {
-      if (statusNodeRef.current) {
-        const vim: VimMode = monacoVim.initVimMode(editor, statusNodeRef.current);
-        
-        // Cleanup on component unmount
-        return () => vim.dispose();
-      }
-    });
+    editor.focus();
+    initializeVimMode(editor);
   };
 
   return (

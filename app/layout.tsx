@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+// import Script from "next/script";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -25,6 +26,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light">
+      {/*
+      <head>
+        <Script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" async />
+      </head>
+      */}
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-gray-900 text-black dark:text-white`}
       >

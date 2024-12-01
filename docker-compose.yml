@@ -1,0 +1,10 @@
+services:
+  varkdown:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: varkdown:1.0
+    container_name: varkdown
+    restart: unless-stopped
+    ports:
+      - "4001:4001"
