@@ -5,6 +5,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { SyntaxHighlighterProps } from "react-syntax-highlighter";
 import { a11yDark, dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import "katex/dist/katex.min.css";
 
@@ -21,22 +22,29 @@ const Preview: React.FC<PreviewProps> = ({ content, darkMode }) => {
       rehypePlugins={[rehypeKatex, rehypeRaw]}
       className="prose prose-sm md:prose-base lg:prose-lg max-w-none dark:prose-invert"
       components={{
-        code({ inline, className, children, ...props }) {
+        code(props) {
+          const {
+            children,
+            className,
+            node,
+            ...rest
+          } = props as SyntaxHighlighterProps;
           const match = /language-(\w+)/.exec(className || "");
-          return !inline && match ? (
+          return match ? (
             <SyntaxHighlighter
-              style={darkMode ? dracula : a11yDark}
+              {...rest}
               PreTag="div"
-              {...props}
+              language={match[1]}
+              style={darkMode ? dracula : a11yDark}
             >
               {String(children).replace(/\n$/, "")}
             </SyntaxHighlighter>
           ) : (
-            <code className={className} {...props}>
+            <code {...rest} className={className}>
               {children}
             </code>
           );
-        },
+        }
       }}
     >
       {content}

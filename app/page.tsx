@@ -93,8 +93,8 @@ export default function EditorPage() {
   }, [darkMode]);
 
   return (
-    <main className="flex flex-col md:flex-row min-h-screen bg-[#fdf6e3] dark:bg-[#002b36]">
-      <div className="w-full md:w-1/2 p-4 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-700">
+    <main className="flex flex-col md:flex-row min-h-screen bg-solarized-base3 dark:bg-solarized-base03">
+      <div className="w-full md:w-1/2 p-4 border-b md:border-b-0 md:border-r border-solarized-base2 dark:border-solarized-base02">
         <Editor value={content} onChange={setContent} darkMode={darkMode} />
       </div>
       <div className="w-full md:w-1/2 p-4 overflow-y-auto max-h-screen">
@@ -102,7 +102,7 @@ export default function EditorPage() {
       </div>
       <button
         onClick={() => setDarkMode(!darkMode)}
-        className="fixed bottom-4 right-8 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg"
+        className="fixed bottom-4 right-8 p-2 bg-white dark:bg-solarized-base0 rounded-full shadow-lg"
       >
         {darkMode ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
       </button>
