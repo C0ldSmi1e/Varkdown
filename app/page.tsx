@@ -93,12 +93,12 @@ export default function EditorPage() {
   }, [darkMode]);
 
   return (
-    <main className="flex flex-col md:flex-row min-h-screen bg-white dark:bg-gray-900">
+    <main className="flex flex-col md:flex-row min-h-screen bg-[#fdf6e3] dark:bg-[#002b36]">
       <div className="w-full md:w-1/2 p-4 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-700">
         <Editor value={content} onChange={setContent} darkMode={darkMode} />
       </div>
       <div className="w-full md:w-1/2 p-4 overflow-y-auto max-h-screen">
-        <Preview content={content} />
+        <Preview content={content} darkMode={darkMode} />
       </div>
       <button
         onClick={() => setDarkMode(!darkMode)}
