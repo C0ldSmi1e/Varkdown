@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Editor from "@/components/Editor";
 import Preview from "@/components/Preview";
-import { Moon, Sun } from "lucide-react";
+import ExportButtons from "@/components/ExportButtons";
+import ModeSwitcher from "@/components/ModeSwitcher";
 
 const INITIAL_CONTENT = `
 # Markdown syntax guide
@@ -100,13 +101,8 @@ export default function EditorPage() {
       <div className="w-full md:w-1/2 p-4 overflow-y-auto max-h-screen">
         <Preview content={content} darkMode={darkMode} />
       </div>
-      <button
-        onClick={() => setDarkMode(!darkMode)}
-        className="fixed bottom-4 right-8 p-2 bg-white dark:bg-solarized-base0 rounded-full shadow-lg"
-      >
-        {darkMode ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
-      </button>
+      <ExportButtons content={content} darkMode={darkMode} />
+      <ModeSwitcher darkMode={darkMode} setDarkMode={setDarkMode} />
     </main>
   );
 }
-
