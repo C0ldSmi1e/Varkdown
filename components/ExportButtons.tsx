@@ -20,6 +20,7 @@ const ExportButtons = ({ content, darkMode }: ExportButtonsProps) => {
         className={`
             p-2 bg-white dark:bg-solarized-base0 rounded-full shadow-lg
             hover:bg-solarized-base2 dark:hover:bg-solarized-base01
+            text-black dark:text-white
             transition-colors duration-200
         `}
         title="Export as Markdown"
