@@ -6,42 +6,23 @@ import Preview from "@/components/Preview";
 import ExportButtons from "@/components/ExportButtons";
 import ModeSwitcher from "@/components/ModeSwitcher";
 
-const INITIAL_CONTENT = `# Varkdown
+const INITIAL_CONTENT = `
+# Varkdown
 
-A Markdown + LaTeX editor with VIM.
+An **Markdown + LaTeX** editor with **Vim** mode.
 
 ## Markdown
 
-**Bold**
-
-*Italic*
-
-~~Strikethrough~~
-
-- List item
-- List item
-
-1. List item
-2. List item
-
-> Blockquote
-
----
-
-[Link](https://example.com)
-
-![Image](https://via.placeholder.com/150)
+[Repository](https://github.com/Daniel777y/Varkdown)
 
 ## LaTeX
 
-Single-line:
-
-$a^2 + b^2 = c^2$
+Single line: $a^2 + b^2 = c^2$
 
 Multi-line:
 
 $$
-\\int_{-\infty}^{\infty} e^{-x^2} dx = \\sqrt{\\pi}
+\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}
 $$
 `;
 
@@ -58,7 +39,7 @@ export default function EditorPage() {
   }, [darkMode]);
 
   return (
-    <main className="flex flex-col md:flex-row min-h-screen bg-solarized-base3 dark:bg-solarized-base03">
+    <main className="flex flex-col md:flex-row min-h-screen bg-solarized-base3 dark:bg-solarized-base03 overflow-hidden">
       <div className="w-full md:w-1/2 py-4 border-b md:border-b-0 md:border-r border-solarized-base2 dark:border-solarized-base02">
         <Editor value={content} onChange={setContent} darkMode={darkMode} />
       </div>

@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light">
+    <html lang="en">
       {/*
       <head>
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" async />
