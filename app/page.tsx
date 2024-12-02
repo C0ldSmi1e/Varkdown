@@ -58,7 +58,7 @@ _You **can** combine them_
 
 ## Links
 
-[Repository](https://github.com/Daniel777y/Varkdown)
+This is a [link](https://github.com/Daniel777y/Varkdown) to the repository of Varkdown.
 
 ## Blockquotes
 
@@ -83,7 +83,7 @@ alert(message);
 
 ## Inline code
 
-This web site is using \`markedjs/marked\`.
+This is \`inline code\`.
 `;
 
 
