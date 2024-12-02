@@ -16,7 +16,7 @@ interface PreviewProps {
 
 const Preview: React.FC<PreviewProps> = ({ content, darkMode }) => {
   return (
-    <div className="preview-container overflow-auto h-[92vh] font-sans">
+    <div className="preview-container overflow-auto h-full font-sans">
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkMath]}
         rehypePlugins={[rehypeKatex, rehypeRaw]}

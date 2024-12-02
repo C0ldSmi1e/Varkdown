@@ -137,7 +137,7 @@ export default function MonacoEditor({ value, onChange, darkMode }: EditorProps)
   return (
     <div className="relative h-full overflow-hidden">
       <Editor
-        height="92vh"
+        className="h-[92vh]"
         defaultLanguage="markdown"
         value={value}
         onChange={(value) => onChange(value ?? "")}
