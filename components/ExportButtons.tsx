@@ -14,7 +14,7 @@ const ExportButtons = ({ content, darkMode }: ExportButtonsProps) => {
   };
 
   return (
-    <div className="fixed bottom-16 right-10 flex flex-col gap-2">
+    <div className="fixed bottom-16 right-6 flex flex-col gap-2">
       <button
         onClick={handleMarkdownExport}
         className={`

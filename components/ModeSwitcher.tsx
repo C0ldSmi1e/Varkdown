@@ -10,7 +10,7 @@ const ModeSwitcher = ({ darkMode, setDarkMode }: ModeSwitcherProps) => {
     <button
       onClick={() => setDarkMode(!darkMode)}
       className={`
-        fixed bottom-4 right-10 p-2 bg-white dark:bg-solarized-base0 rounded-full shadow-lg
+        fixed bottom-4 right-6 p-2 bg-white dark:bg-solarized-base0 rounded-full shadow-lg
         hover:bg-solarized-base2 dark:hover:bg-solarized-base01
         transition-colors duration-200
       `}
