@@ -50,7 +50,10 @@ const Preview: React.FC<PreviewProps> = ({ content, darkMode }) => {
                 {children}
               </code>
             );
-          }
+          },
+          a: ({ node, ...props }) => (
+            <a target="_blank" rel="noopener noreferrer" {...props} />
+          ),
         }}
       >
         {content}
