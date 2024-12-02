@@ -9,7 +9,7 @@ import ModeSwitcher from "@/components/ModeSwitcher";
 const INITIAL_CONTENT = `
 # Varkdown
 
-An **Markdown + LaTeX** editor with **Vim** mode.
+Varkdown is an editor for **Markdown** and **LaTeX**, with **Vim** bindings.
 
 ## Markdown
 
