@@ -10,7 +10,16 @@ interface ExportButtonsProps {
 const ExportButtons = ({ content, darkMode }: ExportButtonsProps) => {
   const handleMarkdownExport = () => {
     const blob = new Blob([content], { type: "text/markdown;charset=utf-8" });
-    saveAs(blob, `${new Date().toISOString()}.md`);
+    // get timestamp (month/day/year hour:minute:second)
+    const timestamp = new Date().toLocaleString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+    saveAs(blob, `${timestamp}.md`);
   };
 
   return (
