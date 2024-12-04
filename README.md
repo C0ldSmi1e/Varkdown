@@ -7,4 +7,5 @@
 - [ ] Customize the filename
 - [ ] Export to PDF
 - [ ] Paste image
-- [ ] Cache
+- [x] Cache
+- [ ] Shareable link

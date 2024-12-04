@@ -6,7 +6,7 @@ import type { MonacoVim, VimMode } from "@/types/editor";
 
 interface EditorProps {
   value: string;
-  onChange: (value: string) => void;
+  onContentChange: (value: string) => void;
   darkMode: boolean;
 }
 
@@ -44,7 +44,7 @@ declare global {
   }
 }
 
-export default function MonacoEditor({ value, onChange, darkMode }: EditorProps) {
+export default function MonacoEditor({ value, onContentChange, darkMode }: EditorProps) {
   const statusNodeRef = useRef<HTMLDivElement>(null);
   const monacoRef = useRef<typeof Monaco | null>(null);
   const editorRef = useRef<Monaco.editor.IStandaloneCodeEditor | null>(null);
@@ -140,7 +140,7 @@ export default function MonacoEditor({ value, onChange, darkMode }: EditorProps)
         className="h-[92vh]"
         defaultLanguage="markdown"
         value={value}
-        onChange={(value) => onChange(value ?? "")}
+        onChange={(value) => onContentChange(value ?? "")}
         onMount={handleEditorDidMount}
         options={EDITOR_OPTIONS}
         theme={darkMode ? "dark" : "light"}
